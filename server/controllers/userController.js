@@ -11,7 +11,7 @@ class UserController {
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
 
     try {
       // Hash password
@@ -19,7 +19,7 @@ class UserController {
       const hashedPassword = await bcrypt.hash(password, salt);
 
       //create a new user
-      const msg = await createUser(email, hashedPassword);
+      const msg = await createUser(name, email, hashedPassword);
 
       //respond with success
       res.status(201).json({ message: msg });

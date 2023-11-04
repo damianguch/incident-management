@@ -19,7 +19,7 @@ function getUser(email) {
   });
 }
 
-function createUser(email, password) {
+function createUser(name, email, password) {
   return new Promise((resolve, reject) => {
     // Check if the user with the same email already exists
     const checkQuery = 'SELECT * FROM users WHERE email = ?';
@@ -27,12 +27,12 @@ function createUser(email, password) {
       if (checkError) {
         reject(checkError);
       } else if (results.length > 0) {
-        // User with the same email already exists
         reject('User with this email already exists.');
       } else {
         // User does not exist, proceed with insertion
-        const insertQuery = 'INSERT INTO users (email, password) VALUES (?, ?)';
-        db.query(insertQuery, [email, password], (insertError) => {
+        const insertQuery =
+          'INSERT INTO users (name, email, password) VALUES (?, ?, ?)';
+        db.query(insertQuery, [name, email, password], (insertError) => {
           if (insertError) {
             reject(insertError.message);
           } else {
