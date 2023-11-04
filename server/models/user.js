@@ -8,10 +8,10 @@ function getUser(email) {
       if (err) {
         reject(err);
       } else if (results.length === 0) {
-        // No user found with this email
+        // No user with this email found
         resolve(null);
       } else {
-        // User with this email found; now, verify the password
+        // User with this email found, send results for verification
         console.log(results[0]);
         resolve(results[0]);
       }

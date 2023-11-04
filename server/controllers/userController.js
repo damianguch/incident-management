@@ -1,8 +1,8 @@
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const { getUser, createUser } = require('../models/user');
-require('dotenv').config();
 
 class UserController {
   static async register(req, res) {
@@ -62,15 +62,6 @@ class UserController {
           expiresIn: '15m'
         }
       );
-
-      //Generate refresh token
-      // const refreshToken = jwt.sign(
-      //   { userId: user.Id },
-      //   process.env.ACCESS_SECRET_KEY,
-      //   {
-      //     expiresIn: '7d'
-      //   }
-      // );
 
       res.status(200).json({ accessToken });
     } catch (err) {
