@@ -19,6 +19,23 @@ function getUser(email) {
   });
 }
 
+// Function to retrieve a user by email from the database
+exports.getUserByEmail = async (email) => {
+  try {
+    const [rows, fields] = await db.execute(
+      'SELECT * FROM users WHERE email = ?',
+      [email]
+    );
+
+    return rows.length > 0 ? rows[0] : null;
+  } catch (error) {
+    console.error('Error retrieving user by email:', error);
+    throw error;
+  } finally {
+    db.end();
+  }
+};
+
 function createUser(name, email, password) {
   return new Promise((resolve, reject) => {
     // Check if the user with the same email already exists
