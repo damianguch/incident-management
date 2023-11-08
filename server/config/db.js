@@ -3,14 +3,18 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
-});
+const config = {
+  db: {
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+  }
+};
 
-db.connect((err) => {
+con = mysql.createConnection(config.db);
+
+con.connect((err) => {
   if (err) {
     console.error('Database connection error:', err);
   } else {
@@ -18,4 +22,4 @@ db.connect((err) => {
   }
 });
 
-module.exports = db;
+module.exports = con;
